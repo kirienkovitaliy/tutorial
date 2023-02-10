@@ -5,7 +5,7 @@ GOOD_BYE_VERSION = ['good bye', 'close', 'exit']
 def input_error(func):
     def inner(*args, **kwargs):
         try:
-            func()
+            return func(*args, **kwargs)
         except KeyError:
             print('Give me correct name please')
         except ValueError:
