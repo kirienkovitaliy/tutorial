@@ -12,6 +12,8 @@ def input_error(func):
             print('Enter user name')
         except IndexError:
             print('Give me name and phone please')
+        finally:
+            main()
     return inner
 
 
