@@ -3,20 +3,19 @@ GOOD_BYE_VERSION = ['good bye', 'close', 'exit']
 
 
 def input_error(func):
-    def inner():
+    def inner(*args, **kwargs):
         try:
             func()
         except KeyError:
-            print('Give me name please')
+            print('Give me correct name please')
         except ValueError:
             print('Enter user name')
         except IndexError:
             print('Give me name and phone please')
-        return func()
     return inner
 
 
-# @input_error
+@input_error
 def main():
     bot = True
     while bot:
