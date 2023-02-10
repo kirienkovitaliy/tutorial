@@ -35,10 +35,8 @@ def main():
         elif 'change' in answer:
             change(answer)
             print('contact changed')
-        elif 'phone' in answer:
-            phone(answer)
-            print(f'phone {CONTACTS.get(answer[1])}')
-
+        elif "phone" in answer:
+            print(f"phone {phone(answer)}")
         elif answer == 'show all':
             show(CONTACTS)
             print(f"Your contacts:\n{show(CONTACTS)} ")
@@ -57,8 +55,8 @@ def change(answer):
 
 def phone(answer):
     answer = answer.split(' ')
-    if answer[1] in CONTACTS:
-        CONTACTS.get(answer[1])
+    phone = CONTACTS[answer[1]]
+    return phone
 
 
 def show(CONTACTS):
