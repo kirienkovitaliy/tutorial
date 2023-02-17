@@ -17,10 +17,14 @@ class Phone(Field):
 
 class Record:
 
-    def __init__(self, Name, Phone=[], Email=[]):
-        self.name = Name
-        self.phones = [Phone]
-        self.email = [Email]
+    def __init__(self, name, phone: Phone = None, email=None):
+        self.name = name
+        self.phones = []
+        self.emails = []
+        if phone:
+            self.phones.append(phone)
+        if email:
+            self.emails.append(email)
 
 
 class AddressBook(UserDict):
