@@ -66,11 +66,17 @@ class Record:
             self.emails.append(email)
 
     def days_to_birthday(self):
-        if Birthday:
-            current_datetime = datetime.now()
-            user_db = datetime.strptime(Birthday, "%d.%m.%Y")
-            user_db = user_db.replace(year=current_datetime.year)
-            return (user_db - current_datetime).days
+        if self.birthday:
+            current_datetime = datetime.now().date()
+            user_db = self.birthday.value.split('.')
+            date = datetime(year=current_datetime.year, month=int(
+                user_db[1]), day=int(user_db[0])).date()
+            next = date - current_datetime
+            if next.days < 0:
+                date = datetime(year=current_datetime.year + 1,
+                                month=int(user_db[1]), day=int(user_db[0])).date()
+            else:
+                next = date - current_datetime
 
 
 class AddressBook(UserDict):
