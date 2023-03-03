@@ -1,3 +1,4 @@
+import pickle
 import re
 from collections import UserDict
 from datetime import datetime
@@ -77,6 +78,7 @@ class Record:
                                 month=int(user_db[1]), day=int(user_db[0])).date()
             else:
                 next = date - current_datetime
+            return next
 
 
 class AddressBook(UserDict):
@@ -95,3 +97,26 @@ class AddressBook(UserDict):
         for indx, val in enumerate(self.values, start=1):
             if indx <= N:
                 yield val
+
+    def save_to_file(self):
+        with open(self.filename, "wb") as file:
+            pickle.dump(self, file)
+
+    def read_from_file(self):
+        with open(self.filename, "rb") as file:
+            content = pickle.load(file)
+        return content
+
+    def search(self, query):
+        query = query.lower()
+        results = []
+        for record in self.values():
+            if query in record.name.value.lower():
+                results.append(record)
+            for phone in record.phones:
+                if query in phone.phone.lower():
+                    results.append(record)
+            for email in record.emails:
+                if query in email.lower():
+                    results.append(record)
+        return results
