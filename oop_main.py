@@ -120,3 +120,47 @@ class AddressBook(UserDict):
                 if query in email.lower():
                     results.append(record)
         return results
+
+
+# Створення книги
+address_book = AddressBook()
+
+# Створення записів
+record1 = Record(Name('John Doe'), Phone('555-1234'),
+                 'johndoe@example.com', Birthday('01.01.1990'))
+record2 = Record(Name('Jane Doe'), Phone('555-5678'),
+                 'janedoe@example.com', Birthday('02.02.1991'))
+
+# Додавання записів в книгу
+address_book.add_record(record1)
+address_book.add_record(record2)
+
+# Перевірка, чи записи додалися в книгу
+print(address_book.data)
+
+# Видалення запису з книги
+address_book.remove_record('Jane Doe')
+
+# Перевірка, чи запис видалився з книги
+print(address_book.data)
+
+# Зміна запису
+address_book.change_record('John Doe')
+
+# Ітерація по першим N записам в книзі
+for record in address_book.iterator(1):
+    print(record)
+
+# Пошук в книзі
+results = address_book.search('john')
+print(results)
+
+# Збереження книги у файл
+address_book.filename = 'address_book.pkl'
+address_book.save_to_file()
+
+# Читання книги з файлу
+address_book_from_file = AddressBook()
+address_book_from_file.filename = 'address_book.pkl'
+address_book_from_file.read_from_file()
+print(address_book_from_file.data)
